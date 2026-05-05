@@ -104,3 +104,52 @@ class TestBasicOperations(CalculatorSetupTeardownTest):
             "Display is 33", 
             "Display does not match expected value"
         )
+
+    def test_division(self):
+        self.wait.until(EC.element_to_be_clickable((By.NAME, "Two"))).click()
+        self.wait.until(EC.element_to_be_clickable((By.NAME, "Five"))).click()
+        self.wait.until(EC.element_to_be_clickable((By.NAME, "Divide by"))).click()
+        self.wait.until(EC.element_to_be_clickable((By.NAME, "Five"))).click()
+        self.wait.until(EC.element_to_be_clickable((By.NAME, "Equals"))).click()
+
+        Expression = self.wait.until(
+            EC.presence_of_element_located((By.NAME, "Expression is 25 ÷ 5=")))
+
+        Display = self.wait.until(
+            EC.presence_of_element_located((By.NAME, "Display is 5")))
+
+        
+        self.assertEqual(
+            Expression.get_attribute("Name"), 
+            "Expression is 25 ÷ 5=",
+            "Expression does not match expected value"
+        )
+        self.assertEqual(
+            Display.get_attribute("Name"),
+            "Display is 5", 
+            "Display does not match expected value"
+        )
+
+    def test_negative_addition(self):
+        self.wait.until(EC.element_to_be_clickable((By.NAME, "Minus"))).click()
+        self.wait.until(EC.element_to_be_clickable((By.NAME, "One"))).click()
+        self.wait.until(EC.element_to_be_clickable((By.NAME, "Plus"))).click()
+        self.wait.until(EC.element_to_be_clickable((By.NAME, "Three"))).click()
+        self.wait.until(EC.element_to_be_clickable((By.NAME, "Equals"))).click()
+
+        Expression = self.wait.until(
+            EC.presence_of_element_located((By.NAME, "Expression is -1 + 3=")))
+
+        Display = self.wait.until(
+            EC.presence_of_element_located((By.NAME, "Display is 2")))
+
+        self.assertEqual(
+            Expression.get_attribute("Name"), 
+            "Expression is -1 + 3=",
+            "Expression does not match expected value"
+        )
+        self.assertEqual(
+            Display.get_attribute("Name"),
+            "Display is 2", 
+            "Display does not match expected value"
+        )
